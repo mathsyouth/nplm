@@ -109,8 +109,8 @@ class Activation_function
 	    {
 	    case Identity: my_output = input; break;
 	    case Rectifier: my_output = finput.array().unaryExpr(drectifier_functor()) * input.array(); break;
-	    case Tanh: my_output = foutput.array().unaryExpr(tanh_functor()) * input.array(); break;
-	    case HardTanh: my_output = finput.array().unaryExpr(hardtanh_functor()) * input.array(); break;
+	    case Tanh: my_output = foutput.array().unaryExpr(dtanh_functor()) * input.array(); break;
+	    case HardTanh: my_output = finput.array().unaryExpr(dhardtanh_functor()) * input.array(); break;
 	    }
         }
 };

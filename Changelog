@@ -1,0 +1,3 @@
+2014-10-31 (v0.3)
+
+    * Corrected the gradient computation in the linear layer. Change made by Kenton Murray (kmurray4@nd.edu)

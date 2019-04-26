@@ -210,6 +210,14 @@ Note that for 11 source word and 3 target words, each line in the training file 
 
 <src_context_word_1> <src_context_word_2>...<src_context_word_11> <target_context_word_1>...<target_context_word_3> <output_target_word>
     
+Using Memory mapped files (New in v0.3)
+---------------------------------------
+
+If you cannot store the entire training data onto the RAM, the toolkit now allows you to generate and train with memory mapped files, which reside on disk. Please look at at the script example/train_ngram_mmap.sh for usage. 
 
 
-
+CONTRIBUTORS:
+Ashish vaswani (vaswani@usc.edu)
+David Chiang (dchiang@nd.edu)
+Victoria Fossum
+Kenton Murray (kmurray4@nd.edu)

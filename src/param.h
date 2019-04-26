@@ -1,3 +1,4 @@
+//The framework for obtaining user arguments has been inspired by Sittichai Jiampojamarn's Many-to-Many alignment model (m2m-aligner). https://code.google.com/p/m2m-aligner/
 #pragma once
 
 #include <string>
