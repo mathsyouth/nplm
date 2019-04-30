@@ -1,8 +1,8 @@
 ### Compilation options.
 
 # C++ compiler. Tested with g++ and Intel icpc.
-#CXX=/usr/bin/g++
-CXX=/opt/local/bin/g++-mp-4.7
+CXX=/usr/bin/g++
+# CXX=/opt/local/bin/g++-mp-4.7
 #CXX=icpc
 
 # Compiler options. Note that -DEIGEN_NO_DEBUG is essential for good performance!
@@ -22,8 +22,8 @@ OS:=$(shell uname -s)
 # Set this to the root directory of Boost (should have a subdirectory named boost):
 
 #BOOST=/usr/usc/boost/1.51.0
-#BOOST=/usr
-BOOST=/opt/local
+BOOST=/usr/local
+# BOOST=/opt/local
 # Where to find Boost header files
 BOOST_INC=$(BOOST)/include
 
@@ -39,12 +39,13 @@ OMP=1
 #MKL=/usr/usc/intel/12.1.1/mkl
 # Set to 1 if you want to use the Single Dynamic Library; comment out otherwise.
 # This is required for building the Python extensions, but doesn't work with building a static binary.
-MKL_SINGLE=1
+# MKL_SINGLE=1
 
 # For Python bindings, set the following and run 'make python/nplm.so'.
 PYTHON_VERSION=2.7
 #PYTHON_ROOT=/opt/local/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)
-PYTHON_ROOT=/home/nlg-01/chiangd/pkg64/python
+# PYTHON_ROOT=/home/nlg-01/chiangd/pkg64/python
+PYTHON_ROOT=/usr
 CYTHON=$(PYTHON_ROOT)/bin/cython
 
 ##### End of configurable options #####
@@ -58,8 +59,8 @@ TCLAP=../3rdparty/tclap/include
 # Where to find Boost libraries
 BOOST_LIB=$(BOOST)/lib
 # On some systems, a suffix is appended for the multithreaded version.
-#BOOST_LIB_SUFFIX=
-BOOST_LIB_SUFFIX=-mt
+BOOST_LIB_SUFFIX=
+# BOOST_LIB_SUFFIX=-mt
 
 BOOST_CFLAGS=-I$(BOOST_INC)
 BOOST_LDFLAGS=

@@ -20,8 +20,8 @@ if __name__ == "__main__":
     parser.add_argument('--train_text', metavar='file', dest='train_text', help='training text file')
     parser.add_argument('--validation_text', metavar='file', dest='validation_text', help='validation text file (overrides --validation_size)')
     parser.add_argument('--ngram_size', metavar='n', dest='ngram_size', type=int, default=3, help='size of n-grams')
-    parser.add_argument('--n_vocab', metavar='V', dest='n_vocab', type=int, help='number of word types')
-    parser.add_argument('--words_file', metavar='file', dest='words_file', help='make vocabulary')
+    parser.add_argument('--vocab_size', metavar='V', dest='vocab_size', type=int, help='number of word types')
+    parser.add_argument('--write_words_file', metavar='file', dest='write_words_file', help='make vocabulary')
     parser.add_argument('--train_file', metavar='file', dest='train_file', default='-', help='make training file')
     parser.add_argument('--validation_file', metavar='file', dest='validation_file', help='make training file')
     parser.add_argument('--validation_size', metavar='m', dest='validation_size', type=int, default=0, help="select m lines for validation")
@@ -54,12 +54,12 @@ if __name__ == "__main__":
     v.insert_word(start)
     v.insert_word(stop)
     v.insert_word(null)
-    inserted = v.from_counts(c, args.n_vocab)
+    inserted = v.from_counts(c, args.vocab_size)
     if inserted == len(c):
-        sys.stderr.write("warning: only %d words types in training data; set --n_vocab lower to learn unknown word\n");
+        sys.stderr.write("warning: only %d words types in training data; set --vocab_size lower to learn unknown word\n");
 
-    if args.words_file:
-        with open(args.words_file, "w") as outfile:
+    if args.write_words_file:
+        with open(args.write_words_file, "w") as outfile:
             for w in v.words:
                 outfile.write("%s\n" % (w,))
 
