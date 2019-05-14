@@ -1,11 +1,11 @@
 ## Prerequisites
 
 Before compiling, you must have the following:
-1. A C++ compiler and GNU make
-2. [Eigen 3.1.x](http://eigen.tuxfamily.org)
-and
+1. A C++ compiler and GNU make.
+2. [Eigen 3.1.x](http://eigen.tuxfamily.org).
+3. [Boost 1.47.0 or later](http://www.boost.org).
 
-### [Boost 1.47.0 or later](http://www.boost.org)
+### Build and Install Boost
 
 1. Download [boost_1_70_0.tar.bz2](https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_70_0.tar.bz2)
 2. In the directory where you want to put the Boost installation, execute:
@@ -31,26 +31,25 @@ and
 ### Optional
 
 1. [Intel MKL 11.x](https://software.intel.com/en-us/mkl). Recommended for better performance.
-2. Python 2.7.x, not 3.x.
-3. [Cython 0.19.x](http://cython.org). Needed only for building Python bindings.
+2. Python 3.6.x or later.
+3. [Cython 0.19.x or later](http://cython.org). Needed only for building Python bindings.
 
 
 ## Building
 
-To compile, edit the `./src/Makefile` to reflect the locations of C++ compiler,
+To compile, edit `./src/Makefile` to reflect the locations of C++ compiler,
 the Boost and Eigen included directories.
 
-By default, multithreading using OpenMP is enabled. To turn it off,
-comment out the line
-    ```
-    OMP=1
-    ```
+By default, multithreading using OpenMP is enabled. To turn it off, comment out the line
+```
+OMP=1
+```
 
 If you want to use the Intel MKL library (recommended if you have it),
 uncomment the line
-    ```
-    MKL=/path/to/mkl
-    ```
+```
+MKL=/path/to/mkl
+```
 editing it to point to the MKL root directory.
 
 For Python bindings, set the following:
@@ -150,7 +149,7 @@ Notes:
 `python/prepareNeuralLM.py` performs the same function as `bin/prepareNeuralLM`, but in
 Python. This may be handy if you want to make modifications.
 ```shell
-    python2.7 python/prepareNeuralLM.py --train_text example/inferno.txt \
+    python python/prepareNeuralLM.py --train_text example/inferno.txt \
         --ngram_size 3 --vocab_size 5000 --write_words_file words \
         --train_file train.ngrams \
         --validation_size 500 --validation_file validation.ngrams
@@ -159,12 +158,12 @@ Python. This may be handy if you want to make modifications.
 `python/nplm.py` is a pure Python module for reading and using language models
 created by `bin/trainNeuralNetwork`. See `testNeuralLM.py` for example usage.
 ```shell
-python2.7 python/testNeuralLM.py --test_file test_file --model_file model.x
+python python/testNeuralLM.py --test_file test_file --model_file model.x
 ```
 
 In `src/python` are Python bindings (using Cython) for the C++ code. To
 build them, run:
-```
+```shell
 cd src
 make python/nplm.so
 ```
@@ -247,7 +246,7 @@ If you cannot store the entire training data onto the RAM, the toolkit now allow
 
 ## CONTRIBUTORS
 
-Ashish vaswani (vaswani@usc.edu)
-David Chiang (dchiang@nd.edu)
-Victoria Fossum
-Kenton Murray (kmurray4@nd.edu)
+* Ashish Vaswani (vaswani@usc.edu)
+* David Chiang (dchiang@nd.edu)
+* Victoria Fossum
+* Kenton Murray (kmurray4@nd.edu)

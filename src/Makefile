@@ -42,10 +42,10 @@ OMP=1
 # MKL_SINGLE=1
 
 # For Python bindings, set the following and run 'make python/nplm.so'.
-PYTHON_VERSION=2.7
+PYTHON_VERSION=3.6m
 #PYTHON_ROOT=/opt/local/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)
 # PYTHON_ROOT=/home/nlg-01/chiangd/pkg64/python
-PYTHON_ROOT=/usr
+PYTHON_ROOT=/home/ai/.local/share/virtualenvs/linghui-dRDQNWh2
 CYTHON=$(PYTHON_ROOT)/bin/cython
 
 ##### End of configurable options #####
@@ -130,6 +130,7 @@ ALL_LDFLAGS=$(OMP_LDFLAGS) $(MKL_LDFLAGS) $(BOOST_LDFLAGS) $(LDFLAGS)
 ALL_LDLIBS=$(MKL_LDLIBS) $(BOOST_LDLIBS)
 
 PYTHON_CFLAGS+=-I$(PYTHON_ROOT)/include/python$(PYTHON_VERSION)
+PYTHON_LDFLAGS=-L$(PYTHON_ROOT)/lib
 ifeq ($(OS),Darwin)
   # avoid having to link in libpython
   PYTHON_LDFLAGS+=-undefined dynamic_lookup
@@ -150,6 +151,7 @@ all: $(BINS) $(LIBS)
 
 clean:
 	rm -f *.o shared/*.o python/*.o $(BINS) $(LIBS) python/nplm.{cpp,so} python/nptm.{cpp,so}
+	rm -rf ../bin ../lib
 
 install: all
 	mkdir -p ../bin
@@ -187,16 +189,16 @@ libnplm.so: $(addprefix shared/,neuralLM.o $(OBJS))
 	$(CXX) -shared $(ALL_LDFLAGS) $^ $(ALL_LDLIBS) -o $@
 
 %.cpp: %.pyx
-	$(CYTHON) --cplus $^ -o $@
+	$(CYTHON) -3 --cplus $^ -o $@
 
 python/nplm.o: python/nplm.cpp
 	$(CXX) -c -fPIC -I. $(ALL_CFLAGS) $(PYTHON_CFLAGS) $< -o $@
 
 python/nplm.so: python/nplm.o $(addprefix shared/,neuralLM.o $(OBJS))
-	$(CXX) -shared $(ALL_LDFLAGS) $(PYTHON_LDFLAGS) $^ $(ALL_LDLIBS) $(PYTHON_LDLIBS) -o $@ 
+	$(CXX) -shared $(ALL_LDFLAGS) $(PYTHON_LDFLAGS) $^ $(ALL_LDLIBS) -o $@ 
 
 python/nptm.o: python/nptm.cpp
 	$(CXX) -c -fPIC -I. $(ALL_CFLAGS) $(PYTHON_CFLAGS) $< -o $@
 
 python/nptm.so: python/nptm.o $(addprefix shared/,neuralTM.o $(OBJS))
-	$(CXX) -shared $(ALL_LDFLAGS) $(PYTHON_LDFLAGS) $^ $(ALL_LDLIBS) $(PYTHON_LDLIBS) -o $@ 
+	$(CXX) -shared $(ALL_LDFLAGS) $(PYTHON_LDFLAGS) $^ $(ALL_LDLIBS) -o $@ 

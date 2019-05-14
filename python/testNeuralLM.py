@@ -19,7 +19,7 @@ if __name__ == "__main__":
         words = ['<s>'] * (n-1) + words + ['</s>']
         words = [m.word_to_index.get(w, unk) for w in words]
         ngrams = []
-        for i in xrange(n-1, len(words)):
+        for i in range(n-1, len(words)):
             ngrams.append(words[i-n+1:i+1])
         ngrams = m.make_data(ngrams)
-        print m.forward_prop(ngrams[:-1], output=ngrams[-1])[:,0]
+        print(m.forward_prop(ngrams[:-1], output=ngrams[-1])[:,0])

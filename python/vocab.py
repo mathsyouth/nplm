@@ -14,7 +14,7 @@ class Vocab(object):
 
     def from_counts(self, counts, size, unk="<unk>"):
         # Keep only most frequent words
-        q = [(-count, word) for (word, count) in counts.iteritems()]
+        q = [(-count, word) for (word, count) in counts.items()]
         heapq.heapify(q)
         inserted = 0
         while len(self.words) < size and len(q) > 0:

@@ -61,13 +61,13 @@ class NeuralLM(object):
     def to_file(self, outfile):
 
         def write_matrix(m):
-            for i in xrange(m.shape[0]):
+            for i in range(m.shape[0]):
                 outfile.write("\t".join(map(str, m[i])))
                 outfile.write("\n")
             outfile.write("\n")
 
         def write_vector(m):
-            for i in xrange(m.shape[0]):
+            for i in range(m.shape[0]):
                 outfile.write(str(m[i]))
                 outfile.write("\n")
             outfile.write("\n")
@@ -110,7 +110,7 @@ class NeuralLM(object):
         # Helper functions
         def read_sections(infile):
             while True:
-                line = infile.next().strip()
+                line = next(infile).strip()
                 if line == "\\end":
                     break
                 elif line.startswith('\\'):
@@ -118,7 +118,7 @@ class NeuralLM(object):
 
         def read_section(infile):
             while True:
-                line = infile.next().strip()
+                line = next(infile).strip()
                 if line == "":
                     break
                 else:
@@ -129,7 +129,7 @@ class NeuralLM(object):
                 out = numpy.zeros((m, n))
             i = 0
             for line in lines:
-                row = numpy.array(map(float, line.split()))
+                row = numpy.array([float(i) for i in line.split()])
                 if len(row) != n:
                     raise Exception("wrong number of columns (expected %d, found %d)" % (n, len(row)))
                 if i >= m:
@@ -176,13 +176,13 @@ class NeuralLM(object):
     def make_data(self, ngrams):
         """Takes a list of n-grams of words (as ints),
            and converts into a list of n sparse arrays."""
-        rows = [[] for j in xrange(self.ngram_size)]
-        cols = [[] for j in xrange(self.ngram_size)]
-        values = [[] for j in xrange(self.ngram_size)]
+        rows = [[] for j in range(self.ngram_size)]
+        cols = [[] for j in range(self.ngram_size)]
+        values = [[] for j in range(self.ngram_size)]
         for i, ngram in enumerate(ngrams):
             for j, w in enumerate(ngram):
                 rows[j].append(w)
                 cols[j].append(i)
                 values[j].append(1)
-        data = [scipy.sparse.csc_matrix((values[j], (rows[j], cols[j])), shape=(self.vocab_size, len(ngrams))) for j in xrange(self.ngram_size)]
+        data = [scipy.sparse.csc_matrix((values[j], (rows[j], cols[j])), shape=(self.vocab_size, len(ngrams))) for j in range(self.ngram_size)]
         return data

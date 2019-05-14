@@ -8,7 +8,7 @@ stop = "</s>"
 null = "<null>"
 
 def ngrams(words, n):
-    for i in xrange(n-1, len(words)):
+    for i in range(n-1, len(words)):
         yield words[i-n+1:i+1]
 
 if __name__ == "__main__":
@@ -31,13 +31,13 @@ if __name__ == "__main__":
     train_data = []
     validation_data = []
     
-    for li, line in enumerate(file(args.train_text)):
+    for li, line in enumerate(open(args.train_text)):
         words = line.split()
         words = [start] * (n-1) + words + [stop]
         train_data.append(words)
 
     if args.validation_text:
-        for li, line in enumerate(file(args.validation_text)):
+        for li, line in enumerate(open(args.validation_text)):
             words = line.split()
             words = [start] * (n-1) + words + [stop]
             validation_data.append(words)
